@@ -22,8 +22,8 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.event.input.REPOSITORY }}
-  IMAGE_TAG: ${{ github.event.input.TAG }}
+  IMAGE_NAME: ${{ github.event.inputs.REPOSITORY }}
+  IMAGE_TAG: ${{ github.event.inputs.TAG }}
 
 
 jobs:
