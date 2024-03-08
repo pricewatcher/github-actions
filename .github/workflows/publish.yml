@@ -8,27 +8,20 @@ name: Publish
 on:
   workflow_call:
     inputs:
-      BUILD _IMAGE:
-        type: boolean
-        description: Build image and publish to ghcr
-        default: false
-        required: false
       REPOSITORY:
         type: string
         description: Repository to build the docker image
         required: true
-      TAG:
-        type: string
-        description: Image tag to use
-        required: true
 
 env:
-  ACTIONS_STEP_DEBUG: true
   # Use docker.io for Docker Hub if empty
+  # This is defined in the maven settings
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   REPOSITORY: ${{ inputs.REPOSITORY }}
+  # This is defined in the maven settings
   GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+  # This is defined in the maven settings
   GITHUB_USERNAME: ${{ github.actor }}
 
 
@@ -58,6 +51,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Build image with Maven
-        id: build-image
+      - name: Build and publish image using Maven
+        id: build-and-publish-image
         run: mvn -B spring-boot:build-image --file pom.xml
