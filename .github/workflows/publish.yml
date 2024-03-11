@@ -51,10 +51,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Build and publish latest image using Maven
-        id: build-and-publish-latest-image
-        run: mvn -B spring-boot:build-image --file pom.xml -Dspring-boot.build-image.imageName=ghcr.io/${{ env.REPOSITORY }}:latest
-
+          
       - name: Build and publish image using Maven
         id: build-and-publish-image
         run: mvn -B spring-boot:build-image --file pom.xml
